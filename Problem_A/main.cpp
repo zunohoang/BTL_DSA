@@ -403,9 +403,8 @@ public:
             {
                 cout << "Nhap (1/2/3): " << endl;
                 cin >> option;
-                option += 1;
             }
-            this->showByType(type[option]);
+            this->showByType(type[option - 1]);
             break;
         }
         case 13:
