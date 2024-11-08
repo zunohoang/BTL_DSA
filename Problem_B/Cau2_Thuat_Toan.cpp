@@ -40,7 +40,7 @@ public:
         // cho tuoi cu Ted la 100 tuoi va khong co cha...
         people.push_back({"", "Ted", 100, 0});
     }
-    void run(int q)
+    void run()
     {
 
         bool allAgesCalculated = false;
@@ -74,11 +74,10 @@ public:
 
         // sap xep theo tuoi giam dan, neu cung tuoi thi sap xep theo ten
         people.sort(cmp);
-        cout << "DATASET " << q << endl;
+        people.pop_front(); // xoa Ted ra khoi danh sach
         for (const auto &person : people)
         {
-            if (person.name != "Ted")
-                cout << person.name << " " << person.age << endl;
+            cout << person.name << " " << person.age << endl;
         }
     }
 
@@ -96,11 +95,12 @@ int main()
 {
     int q;
     cin >> q;
-    while (q--)
+    for (int i = 1; i <= q; i++)
     {
         ProgramService programService;
         programService.input();
-        programService.run(q);
+        cout << "DATASET " << i << endl;
+        programService.run();
     }
     return 0;
 }

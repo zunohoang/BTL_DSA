@@ -81,13 +81,13 @@ public:
         switch (type)
         {
         case RoomType::CLASSROOM:
-            return "Phòng học";
+            return "Phong hoc";
         case RoomType::LAB:
-            return "Phòng lab";
+            return "Phong lab";
         case RoomType::AUDITORIUM:
-            return "Hội trường";
+            return "Hoi truong";
         default:
-            return "Không xác định";
+            return "Khong xac dinh";
         }
     }
 
@@ -124,11 +124,11 @@ public:
 
     friend ostream &operator<<(ostream &os, const Room &room)
     {
-        os << "   + Mã phòng: " << room.id << endl;
-        os << "   + Tên phòng: " << room.name << endl;
-        os << "   + Tầng: " << room.floor << endl;
-        os << "   + Loại: " << room.roomTypeToString() << endl;
-        os << "   + Sức chứa: " << room.size << endl;
+        os << "   + Ma phong: " << room.id << endl;
+        os << "   + Ten phong: " << room.name << endl;
+        os << "   + Tang: " << room.floor << endl;
+        os << "   + Loai: " << room.roomTypeToString() << endl;
+        os << "   + Suc chua: " << room.size << endl;
         return os;
     }
 };
@@ -281,7 +281,7 @@ public:
         cout << "==     10. Xoa tat ca cac phong                                 ==" << endl;
         cout << "==     11. Tim phong co kich co lon hon hoac bang               ==" << endl;
         cout << "==     12. Tim va in danh sach theo loai phong                  ==" << endl;
-        cout << "==     13. Hien thi lai MENU                                     ==" << endl;
+        cout << "==     13. Hien thi lai MENU                                    ==" << endl;
         cout << "==     0. Thoat                                                 ==" << endl;
         cout << "==                                                              ==" << endl;
         cout << "===========================END_CRUD===============================" << endl;
@@ -440,6 +440,8 @@ public:
                 return;
             }
             this->program(option);
+            cout << endl;
+            cout << endl;
             cout << "Thuc hien chuc nang khac vui long chon [0-13] hoac chọn 13 de hien MENU" << endl;
         }
     }
