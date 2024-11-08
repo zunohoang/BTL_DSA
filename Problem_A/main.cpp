@@ -112,9 +112,8 @@ public:
         {
             cout << "Nhap (1/2/3): " << endl;
             in >> option;
-            option += 1;
         }
-        room.type = type[option];
+        room.type = type[option - 1];
 
         cout << "Moi nhap suc chua phong: ";
         in >> room.size;
