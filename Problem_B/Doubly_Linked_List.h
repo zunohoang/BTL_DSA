@@ -128,7 +128,6 @@ public:
         p->getNext()->setPrev(q);
         p->setNext(q);
         n++;
-        return q;
     }
 
     // xoa nut p
