@@ -85,7 +85,7 @@ public:
         case RoomType::LAB:
             return "Phong lab";
         case RoomType::AUDITORIUM:
-            return "Hoi truong";
+            return "Hoi thao";
         default:
             return "Khong xac dinh";
         }
@@ -123,11 +123,7 @@ public:
 
     friend ostream &operator<<(ostream &os, const Room &room)
     {
-        os << "   + Ma phong: " << room.id << endl;
-        os << "   + Ten phong: " << room.name << endl;
-        os << "   + Tang: " << room.floor << endl;
-        os << "   + Loai: " << room.roomTypeToString() << endl;
-        os << "   + Suc chua: " << room.size << endl;
+        os << left << setw(6) << room.id << setw(12) << room.name << setw(10) << room.floor << setw(15) << room.roomTypeToString() << setw(10) << room.size;
         return os;
     }
 };
@@ -137,12 +133,58 @@ class RoomService
 private:
     vector<Room> rooms;
 
+    string fileName;
+
 public:
-    RoomService() = default;
+    RoomService(string fileName)
+    {
+        this->fileName = fileName;
+        ifstream file(fileName);
+        if (!file.is_open())
+        {
+            cout << "Khong the mo file!" << endl;
+            return;
+        }
+        int id, floor, size, type;
+        string name;
+        while (!file.eof())
+        {
+            file >> id;
+            file >> name;
+            file >> floor;
+            file >> type;
+            file >> size;
+            RoomType roomType;
+            if (type == 1)
+            {
+                roomType = RoomType::CLASSROOM;
+            }
+            else if (type == 2)
+            {
+                roomType = RoomType::LAB;
+            }
+            else
+            {
+                roomType = RoomType::AUDITORIUM;
+            }
+            Room room(id, name, floor, roomType, size);
+            this->add(room);
+        }
+    }
 
     void add(const Room &room)
     {
         this->rooms.push_back(room);
+        writeData();
+    }
+
+    void writeData()
+    {
+        ofstream file(fileName);
+        for (int i = 0; i < rooms.size(); i++)
+        {
+            file << rooms[i].getId() << " " << rooms[i].getName() << " " << rooms[i].getFloor() << " " << (int)rooms[i].getType() << " " << rooms[i].getSize() << endl;
+        }
     }
 
     void remove(const int &id)
@@ -152,6 +194,7 @@ public:
             if (rooms[i].getId() == id)
             {
                 rooms.erase(rooms.begin() + i);
+                writeData();
                 cout << "Xoa phong thanh cong!" << endl;
                 return;
             }
@@ -161,10 +204,18 @@ public:
 
     void showAll()
     {
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < rooms.size(); i++)
         {
             cout << rooms[i] << endl;
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showSortBySize()
@@ -172,10 +223,18 @@ public:
         vector<Room> temp = rooms;
         sort(temp.begin(), temp.end(), [](const Room &a, const Room &b)
              { return a.getSize() < b.getSize(); });
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < temp.size(); i++)
         {
             cout << temp[i] << endl;
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showSortByName()
@@ -183,10 +242,18 @@ public:
         vector<Room> temp = rooms;
         sort(temp.begin(), temp.end(), [](const Room &a, const Room &b)
              { return a.getName() < b.getName(); });
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < temp.size(); i++)
         {
             cout << temp[i] << endl;
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showSortByFloor()
@@ -194,14 +261,29 @@ public:
         vector<Room> temp = rooms;
         sort(temp.begin(), temp.end(), [](const Room &a, const Room &b)
              { return a.getFloor() < b.getFloor(); });
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < temp.size(); i++)
         {
             cout << temp[i] << endl;
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showByFloor(const int &floor)
     {
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < rooms.size(); i++)
         {
             if (rooms[i].getFloor() == floor)
@@ -209,10 +291,18 @@ public:
                 cout << rooms[i] << endl;
             }
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showById(const int &id)
     {
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < rooms.size(); i++)
         {
             if (rooms[i].getId() == id)
@@ -220,6 +310,7 @@ public:
                 cout << rooms[i] << endl;
             }
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void update(const int &id, const Room &room)
@@ -229,6 +320,7 @@ public:
             if (rooms[i].getId() == id)
             {
                 rooms[i] = room;
+                writeData();
                 cout << "Cap nhat phong thanh cong!" << endl;
                 return;
             }
@@ -239,11 +331,19 @@ public:
     void removeAll()
     {
         rooms.clear();
+        writeData();
         cout << "Xoa tat ca cac phong thanh cong!" << endl;
     }
 
     void showBySize(const int &size)
     {
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < rooms.size(); i++)
         {
             if (rooms[i].getSize() >= size)
@@ -251,10 +351,18 @@ public:
                 cout << rooms[i] << endl;
             }
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showByType(const RoomType &type)
     {
+        cout << "--------------------------------------------------------" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(12) << "Ten"
+             << setw(10) << "Tang"
+             << setw(15) << "Loai"
+             << setw(10) << "Kich co" << endl;
+        cout << "--------------------------------------------------------" << endl;
         for (int i = 0; i < rooms.size(); i++)
         {
             if (rooms[i].getType() == type)
@@ -262,6 +370,7 @@ public:
                 cout << rooms[i] << endl;
             }
         }
+        cout << "--------------------------------------------------------" << endl;
     }
 
     void showMenu()
@@ -291,7 +400,7 @@ public:
         switch (option)
         {
         case 0:
-            cout << "Chuong trinh da thoat!";
+            cout << "Chuong trinh da thoat!" << endl;
             return;
         case 1:
         {
@@ -323,13 +432,13 @@ public:
         }
         case 3:
         {
-            cout << "--HIEN DANH SACH PHONG--";
+            cout << "--HIEN DANH SACH PHONG--" << endl;
             this->showAll();
             break;
         }
         case 4:
         {
-            cout << "--HIEN DANH SACH PHONG SAP XEP THEO KICH CO--";
+            cout << "--HIEN DANH SACH PHONG SAP XEP THEO KICH CO--" << endl;
             this->showSortBySize();
             break;
         }
@@ -447,7 +556,7 @@ public:
 
 int main()
 {
-    RoomService roomService;
+    RoomService roomService("phong.txt");
     roomService.run();
     return 0;
 }
