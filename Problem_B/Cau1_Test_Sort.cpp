@@ -30,8 +30,11 @@ int main()
     cout << endl;
 
     cout << "Danh sach sau khi sap xep tang dan: ";
-    list.sort([](int a, int b)
-              { return a < b; });
+    list.sort(
+        [](int a, int b)
+        {
+            return a < b;
+        });
     for (auto it = list.begin(); it != list.end(); it++)
     {
         cout << *it << " ";
