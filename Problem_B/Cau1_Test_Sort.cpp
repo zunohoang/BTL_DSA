@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Node.h"
-#include "DList_Iterator.h"
-#include "DList_Reverse_Iterator.h"
-#include "Doubly_Linked_List.h"
+#include "lib/Node.h"
+#include "lib/DList_Iterator.h"
+#include "lib/DList_Reverse_Iterator.h"
+#include "lib/Doubly_Linked_List.h"
 
 using namespace std;
 

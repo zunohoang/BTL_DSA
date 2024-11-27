@@ -1,6 +1,9 @@
 #ifndef ROOM_H
 #define ROOM_H
 #include <bits/stdc++.h>
+#include "RoomType.h"
+
+using namespace std;
 
 class Room
 {
@@ -88,23 +91,25 @@ public:
         in >> room.id;
 
         cout << "Moi nhap ten: ";
-        in >> room.name;
+        in.ignore();
+        getline(in, room.name);
 
         cout << "Moi nhap tang: ";
         in >> room.floor;
 
         cout << "Chon loai phong: " << endl;
-        cout << "   1. Phong hoc" << endl;
-        cout << "   2. Phong thi nghiem" << endl;
-        cout << "   3. Phong hoi thao" << endl;
+        cout << "   0. Phong hoc" << endl;
+        cout << "   1. Phong thuc hanh" << endl;
+        cout << "   2. Phong hoi truong" << endl;
         int option = 0;
         RoomType type[3] = {RoomType::CLASSROOM, RoomType::LAB, RoomType::AUDITORIUM};
-        while (option > 3 || option < 1)
+        do
         {
-            cout << "Nhap (1/2/3): " << endl;
+            cout << "Nhap (0/1/2): " << endl;
             in >> option;
-        }
-        room.type = type[option - 1];
+        } while (option > 2 || option < 0);
+
+        room.type = type[option];
 
         cout << "Moi nhap suc chua phong: ";
         in >> room.size;

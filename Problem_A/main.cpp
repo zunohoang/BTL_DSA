@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    RoomService roomService("../phong.txt");
+    RoomService roomService("./data/phong.txt");
     roomService.run();
     return 0;
 }

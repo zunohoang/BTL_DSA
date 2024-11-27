@@ -2,6 +2,8 @@
 #ifndef DLIST_ITERATOR
 #define DLIST_ITERATOR
 
+#include "Node.h"
+
 template <class T>
 class DList_Iterator
 {

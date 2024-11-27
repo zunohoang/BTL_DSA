@@ -2,6 +2,10 @@
 #ifndef DOUBLY_LINKED_LIST
 #define DOUBLY_LINKED_LIST
 
+#include "Node.h"
+#include "DList_Iterator.h"
+#include "DList_Reverse_Iterator.h"
+
 template <class T>
 class Doubly_Linked_List
 {
@@ -158,21 +162,83 @@ public:
                 return a.getAge() < b.getAge();
          });
      */
+    // void sort(bool (*cmp)(T, T))
+    // {
+    //     for (auto i = head; i != nullptr; i = i->getNext())
+    //     {
+    //         for (auto j = i->getNext(); j != nullptr; j = j->getNext())
+    //         {
+    //             if (cmp(i->getData(), j->getData()))
+    //             {
+    //                 // swap(i->getData(), j->getData());
+    //                 T temp = i->getData();
+    //                 i->setData(j->getData());
+    //                 j->setData(temp);
+    //             }
+    //         }
+    //     }
+    // }
     void sort(bool (*cmp)(T, T))
     {
-        for (auto i = head; i != nullptr; i = i->getNext())
+        head = mergeSort(head, cmp);
+        trail = head;
+        while (trail != nullptr && trail->getNext() != nullptr)
         {
-            for (auto j = i->getNext(); j != nullptr; j = j->getNext())
-            {
-                if (cmp(i->getData(), j->getData()))
-                {
-                    // swap(i->getData(), j->getData());
-                    T temp = i->getData();
-                    i->setData(j->getData());
-                    j->setData(temp);
-                }
-            }
+            trail = trail->getNext();
         }
+    }
+
+private:
+    // Hàm chia đôi danh sách
+    Node<T> *split(Node<T> *start)
+    {
+        Node<T> *slow = start, *fast = start;
+        while (fast->getNext() != nullptr && fast->getNext()->getNext() != nullptr)
+        {
+            slow = slow->getNext();
+            fast = fast->getNext()->getNext();
+        }
+        Node<T> *mid = slow->getNext();
+        slow->setNext(nullptr);
+        if (mid != nullptr)
+            mid->setPrev(nullptr);
+        return mid;
+    }
+
+    // Hàm hợp nhất hai danh sách con đã được sắp xếp
+    Node<T> *merge(Node<T> *left, Node<T> *right, bool (*cmp)(T, T))
+    {
+        if (left == nullptr)
+            return right;
+        if (right == nullptr)
+            return left;
+
+        if (cmp(left->getData(), right->getData()))
+        {
+            left->setNext(merge(left->getNext(), right, cmp));
+            if (left->getNext() != nullptr)
+                left->getNext()->setPrev(left);
+            return left;
+        }
+        else
+        {
+            right->setNext(merge(left, right->getNext(), cmp));
+            if (right->getNext() != nullptr)
+                right->getNext()->setPrev(right);
+            return right;
+        }
+    }
+
+    // Hàm merge sort chính
+    Node<T> *mergeSort(Node<T> *start, bool (*cmp)(T, T))
+    {
+        if (start == nullptr || start->getNext() == nullptr)
+            return start;
+
+        Node<T> *mid = split(start);
+        Node<T> *left = mergeSort(start, cmp);
+        Node<T> *right = mergeSort(mid, cmp);
+        return merge(left, right, cmp);
     }
 };
 

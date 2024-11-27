@@ -2,6 +2,8 @@
 #ifndef DLIST_REVERSE_ITERATOR
 #define DLIST_REVERSE_ITERATOR
 
+#include "Node.h"
+
 template <class T>
 class DList_Reverse_Iterator
 {
