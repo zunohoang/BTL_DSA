@@ -1,0 +1,10 @@
+2  
+4  
+Ted A 40  
+Ted B 30  
+A C 25  
+B D 20  
+3  
+Ted A 50  
+A B 35  
+B C 10  

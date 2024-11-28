@@ -31,17 +31,32 @@ public:
             cin >> person.parent;
             cin >> person.name;
             cin >> person.parent_age_when_born;
-            person.age = -1;
+            person.age = -1; // moi nguoi chua biet tuoi nen dat la -1
 
-            // moi nguoi chua biet tuoi nen dat la -1
             people.push_back(person);
         }
 
         // cho tuoi cu Ted la 100 tuoi va khong co cha...
         people.push_back({"", "Ted", 100, 0});
     }
+
     void run()
     {
+        /*
+        while(chưa tính được tuổi của tất cả mọi người)
+        {
+            for(mỗi người)
+            {
+                if(tuổi của người đó chưa được tính)
+                {
+                    if(người đó có cha mẹ và cha mẹ đã có tuổi)
+                    {
+                        tính tuổi của người đó
+                    }
+                }
+            }
+        }
+        */
 
         bool allAgesCalculated = false;
         while (!allAgesCalculated)
@@ -72,7 +87,7 @@ public:
             }
         }
 
-        // sap xep theo tuoi giam dan, neu cung tuoi thi sap xep theo ten
+        // sap xep theo tuoi tang dan, neu cung tuoi thi sap xep theo ten
         people.sort(cmp);
         people.pop_front(); // xoa Ted ra khoi danh sach
         for (const auto &person : people)
@@ -87,12 +102,14 @@ public:
         {
             return a.name < b.name;
         }
-        return a.age < b.age;
+        return a.age > b.age;
     }
 };
 
 int main()
 {
+    freopen("../Problem_B/Test/input.txt", "r", stdin);
+    freopen("../Problem_B/Test/output.txt", "w", stdout);
     int q;
     cin >> q;
     for (int i = 1; i <= q; i++)

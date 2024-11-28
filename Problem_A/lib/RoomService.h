@@ -79,6 +79,7 @@ void RoomService::run()
             cout << "1. Sap xep theo ten" << endl;
             cout << "2. Sap xep theo suc chua" << endl;
             int sortOption;
+            cout << "Nhap lua chon cua ban(1,2): ";
             cin >> sortOption;
             if (sortOption == 1)
             {
@@ -96,6 +97,7 @@ void RoomService::run()
             cout << "1. Tim theo ID" << endl;
             cout << "2. Tim theo ten" << endl;
             int searchOption;
+            cout << "Nhap lua chon cua ban(1,2): ";
             cin >> searchOption;
             if (searchOption == 1)
             {
